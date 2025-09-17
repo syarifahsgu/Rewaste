@@ -14,4 +14,7 @@ Model ini dapat mengenali berbagai kategori sampah (organik, plastik, kertas, ka
 
 ---
 
-## 📂 Struktur Repo
+## 👨‍💻 Kontributor
+- Syarifah Agustiani
+
+  
