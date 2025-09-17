@@ -4,3 +4,10 @@ models/
 *.pt
 *.ipynb_checkpoints/
 __pycache__/
+=======
+# Object file
+*.o
+
+# Ada Library Information
+*.ali
+
