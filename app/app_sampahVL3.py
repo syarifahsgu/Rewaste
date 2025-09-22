@@ -7,6 +7,7 @@ import numpy as np
 from PIL import Image
 import pandas as pd
 from datetime import datetime
+import os
 from huggingface_hub import hf_hub_download
 
 HF_TOKEN = os.getenv("HF_TOKEN")  # pastikan sudah set di terminal atau Streamlit Secrets
