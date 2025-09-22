@@ -10,6 +10,9 @@ from datetime import datetime
 import os
 from huggingface_hub import hf_hub_download
 
+st.cache_data.clear()
+st.cache_resource.clear()
+
 MODEL_REPO = "syarifahsgu/rewaste_model_efficientnet"
 MODEL_FILENAME = "best_mobilenetv2_data_split.h5"
 
