@@ -12,7 +12,7 @@ from huggingface_hub import hf_hub_download
 
 HF_TOKEN = os.getenv("HF_TOKEN")  # pastikan sudah set di terminal atau Streamlit Secrets
 MODEL_REPO = "syarifahsgu/rewaste_model_efficientnet"
-MODEL_FILENAME = "model.h5"
+MODEL_FILENAME = "model.keras"
 
 # -------------------------------
 # Load model dari HF
