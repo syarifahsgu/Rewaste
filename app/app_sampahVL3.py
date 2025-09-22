@@ -11,8 +11,13 @@ from datetime import datetime
 if "riwayat" not in st.session_state:
     st.session_state["riwayat"] = []
     
-# Load model
-model = load_model('best_model_efficientnet.keras')
+# Available backend options are: "jax", "torch", "tensorflow".
+import os
+os.environ["KERAS_BACKEND"] = "jax"
+	
+import keras
+
+model = keras.saving.load_model("hf://syarifahsgu/rewaste_model_efficientnet")
 
 class_names = ['battery', 'glass', 'metal', 'organic', 'paper', 'plastic']
 
