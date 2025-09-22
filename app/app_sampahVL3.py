@@ -10,7 +10,6 @@ from datetime import datetime
 import os
 from huggingface_hub import hf_hub_download
 
-HF_TOKEN = os.getenv("HF_TOKEN")  # pastikan sudah set di terminal atau Streamlit Secrets
 MODEL_REPO = "syarifahsgu/rewaste_model_efficientnet"
 MODEL_FILENAME = "best_mobilenetv2_data_split.h5"
 
@@ -22,7 +21,7 @@ def load_model_from_hf():
     model_path = hf_hub_download(
         repo_id=MODEL_REPO,
         filename=MODEL_FILENAME,
-        token=HF_TOKEN  # bisa None jika public
+        token=None  # bisa None jika public
     )
     return load_model(model_path)
 
