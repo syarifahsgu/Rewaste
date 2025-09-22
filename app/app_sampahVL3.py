@@ -7,6 +7,8 @@ from tensorflow.keras.applications.efficientnet import preprocess_input
 import pandas as pd
 from datetime import datetime
 
+hf-auth-login
+
 # === Setup session state untuk riwayat ===
 if "riwayat" not in st.session_state:
     st.session_state["riwayat"] = []
