@@ -15,12 +15,11 @@ from huggingface_hub import hf_hub_download
 @st.cache_resource
 def load_model_from_hf():
 	model_path = hf_hub_download(
-    	repo_id="syarifahsgu/rewaste_model_efficientnet",
-    	filename="model.h5",
-    	token=HF_TOKEN
+		repo_id="syarifahsgu/rewaste_model_efficientnet",
+		filename="model.h5",
+		token=HF_TOKEN
 	)
-    return load_model(model_path)
-
+	return load_model(model_path)
 model = load_model_from_hf()
 
 # -------------------------------
