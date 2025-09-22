@@ -11,8 +11,8 @@ import os
 from huggingface_hub import hf_hub_download
 
 HF_TOKEN = os.getenv("HF_TOKEN")  # pastikan sudah set di terminal atau Streamlit Secrets
-MODEL_REPO = "syarifahsgu/rewaste_model_efficientnet"
-MODEL_FILENAME = "model.keras"
+MODEL_REPO = "https://huggingface.co/syarifahsgu/rewaste_model_efficientnet/blob/main/"
+MODEL_FILENAME = "best_model_efficientnet.keras"
 
 # -------------------------------
 # Load model dari HF
