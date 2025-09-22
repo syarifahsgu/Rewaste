@@ -16,12 +16,13 @@ MODEL_FILENAME = "best_mobilenetv2_data_split.h5"
 # -------------------------------
 # Load model dari HF
 # -------------------------------
-@st.cache_resource
+@st.cache_resource(show_spinner=True)
 def load_model_from_hf():
+    # download model dari HF (public) tanpa token
     model_path = hf_hub_download(
         repo_id=MODEL_REPO,
         filename=MODEL_FILENAME,
-        token=None  # bisa None jika public
+        token=None  # karena public
     )
     return load_model(model_path)
 
