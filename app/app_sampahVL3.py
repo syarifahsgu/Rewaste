@@ -10,28 +10,48 @@ from datetime import datetime
 import os
 import gdown
 
+import requests
+from keras.models import load_model
+
+def download_from_drive(file_id, destination):
+    base = "https://drive.google.com/uc?export=download"
+    session = requests.Session()
+
+    # awal request
+    response = session.get(base, params={"id": file_id}, stream=True)
+    token = None
+
+    # cek ada cookie konfirmasi
+    for key, val in response.cookies.items():
+        if key.startswith("download_warning"):
+            token = val
+
+    if token:
+        params = {"id": file_id, "confirm": token}
+        response = session.get(base, params=params, stream=True)
+
+    # simpan file hasil unduh
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(chunk_size=32768):
+            if chunk:
+                f.write(chunk)
+
 @st.cache_resource
 def load_model_from_drive():
-    import os, gdown
-    from keras.models import load_model
+    file_id = "1c8l9hD7y4A6kpPmrcZqO_bhPzF5oNEIx"
+    output_path = "best_model_efficientnet.keras"
 
-    file_id = '1c8l9hD7y4A6kpPmrcZqO_bhPzF5oNEIx'
-    gdrive_url = f'https://drive.google.com/uc?id={file_id}'
-    output_path = 'best_model_efficientnet.keras'
-
-    # Download hanya kalau belum ada
     if not os.path.exists(output_path):
-        gdown.download(gdrive_url, output_path, quiet=False, fuzzy=True)
+        download_from_drive(file_id, output_path)
 
-    # 🔍 Cek ukuran file
-    if os.path.exists(output_path):
-        size_mb = os.path.getsize(output_path) / 1024 / 1024
-        print(f"[INFO] File berhasil diunduh: {size_mb:.2f} MB")
-    else:
-        print("[ERROR] File tidak ditemukan setelah download.")
+    # cek ukuran file
+    size_mb = os.path.getsize(output_path) / (1024 * 1024)
+    print(f"[INFO] File size: {size_mb:.2f} MB")
 
-    # Load model keras
-    return load_model(output_path)
+    return load_model(output_path, compile=False)
+
+model = load_model_from_drive()
+
 
 
 	
