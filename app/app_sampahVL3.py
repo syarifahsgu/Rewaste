@@ -9,23 +9,21 @@ import pandas as pd
 from datetime import datetime
 import os
 import gdown
-import pickle
-
-# Link gdrive model (format gdown)
-file_id = '1c8l9hD7y4A6kpPmrcZqO_bhPzF5oNEIx'  # ganti dengan ID kamu
-gdrive_url = f'https://drive.google.com/uc?id={file_id}'
-
-# Download ke local
-output_path = 'best_model_efficientnet.keras'
 
 @st.cache_resource
-def load_model():
-    gdown.download(gdrive_url, output_path, quiet=False)
-    with open(output_path, 'rb') as f:
-        return pickle.load(f)
+def load_model_from_drive():
+    file_id = '1c8l9hD7y4A6kpPmrcZqO_bhPzF5oNEIx'
+    gdrive_url = f'https://drive.google.com/uc?id={file_id}'
+    output_path = 'best_model_efficientnet.keras'
 
-model = load_model()
+    # Download hanya jika belum ada
+    if not os.path.exists(output_path):
+        gdown.download(gdrive_url, output_path, quiet=False, fuzzy=True)
 
+    # Load model keras
+    return load_model(output_path)
+
+model = load_model_from_drive()
 	
 # st.cache_data.clear()
 # st.cache_resource.clear()
