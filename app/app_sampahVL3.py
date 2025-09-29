@@ -12,16 +12,27 @@ import gdown
 
 @st.cache_resource
 def load_model_from_drive():
+    import os, gdown
+    from keras.models import load_model
+
     file_id = '1c8l9hD7y4A6kpPmrcZqO_bhPzF5oNEIx'
     gdrive_url = f'https://drive.google.com/uc?id={file_id}'
     output_path = 'best_model_efficientnet.keras'
 
+    # Download hanya kalau belum ada
     if not os.path.exists(output_path):
         gdown.download(gdrive_url, output_path, quiet=False, fuzzy=True)
 
-    return load_model(output_path, compile=False)
+    # 🔍 Cek ukuran file
+    if os.path.exists(output_path):
+        size_mb = os.path.getsize(output_path) / 1024 / 1024
+        print(f"[INFO] File berhasil diunduh: {size_mb:.2f} MB")
+    else:
+        print("[ERROR] File tidak ditemukan setelah download.")
 
-model = load_model_from_drive()
+    # Load model keras
+    return load_model(output_path)
+
 
 	
 # st.cache_data.clear()
