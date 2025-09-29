@@ -8,28 +8,45 @@ from PIL import Image
 import pandas as pd
 from datetime import datetime
 import os
-from huggingface_hub import hf_hub_download
+import gdown
+import pickle
 
-st.cache_data.clear()
-st.cache_resource.clear()
+# Link gdrive model (format gdown)
+file_id = '1c8l9hD7y4A6kpPmrcZqO_bhPzF5oNEIx'  # ganti dengan ID kamu
+gdrive_url = f'https://drive.google.com/uc?id={file_id}'
 
-MODEL_REPO = "syarifahsgu/rewaste_model_efficientnet"
-MODEL_FILENAME = "best_mobilenetv2_data_split.h5"
+# Download ke local
+output_path = 'best_model_efficientnet.keras'
 
-# -------------------------------
-# Load model dari HF
-# -------------------------------
-@st.cache_resource(show_spinner=True)
-def load_model_from_hf():
-    # download model dari HF (public) tanpa token
-    model_path = hf_hub_download(
-        repo_id=MODEL_REPO,
-        filename=MODEL_FILENAME,
-        token=None  # karena public
-    )
-    return load_model(model_path)
+@st.cache_resource
+def load_model():
+    gdown.download(gdrive_url, output_path, quiet=False)
+    with open(output_path, 'rb') as f:
+        return pickle.load(f)
 
-model = load_model_from_hf()
+model = load_model()
+
+	
+# st.cache_data.clear()
+# st.cache_resource.clear()
+
+# MODEL_REPO = "syarifahsgu/rewaste_model_efficientnet"
+# MODEL_FILENAME = "best_mobilenetv2_data_split.h5"
+
+# # -------------------------------
+# # Load model dari HF
+# # -------------------------------
+# @st.cache_resource(show_spinner=True)
+# def load_model_from_hf():
+#     # download model dari HF (public) tanpa token
+#     model_path = hf_hub_download(
+#         repo_id=MODEL_REPO,
+#         filename=MODEL_FILENAME,
+#         token=None  # karena public
+#     )
+#     return load_model(model_path)
+
+# model = load_model_from_hf()
 
 # -------------------------------
 # Kelas & Info Pengelolaan
