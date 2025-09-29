@@ -16,14 +16,13 @@ def load_model_from_drive():
     gdrive_url = f'https://drive.google.com/uc?id={file_id}'
     output_path = 'best_model_efficientnet.keras'
 
-    # Download hanya jika belum ada
     if not os.path.exists(output_path):
         gdown.download(gdrive_url, output_path, quiet=False, fuzzy=True)
 
-    # Load model keras
-    return load_model(output_path)
+    return load_model(output_path, compile=False)
 
 model = load_model_from_drive()
+
 	
 # st.cache_data.clear()
 # st.cache_resource.clear()
